@@ -14,10 +14,10 @@ This Proof of Concept (PoC) implements the protocol through HTTP servers. This e
 ## Build
 
 To build the project, follow these steps:
-
-1. Follow the instructions in the BitVMX-CPU submodule and ensure that everything works correctly. In this step, you should obtain a valid `.elf` file that will be used in the following steps.
-2. Generate the commitment file for this `.elf` file, place it in `$PROJECT_ROOT/execution_files/{instruction_commitment_filename}.txt`, and set up the correct `.elf` and `.txt` names in `bitvmx_protocol_library/bitvmx_execution/services/execution_trace_generation_service.py`.
-3. Run the command `docker compose build` in the root of the repository.
+1. Init the BitVMX-CPU submodule with the command `git submodule update --init --recursive`
+2. Follow the instructions in the BitVMX-CPU submodule and ensure that everything works correctly. In this step, you should obtain a valid `.elf` file that will be used in the following steps.
+3. Generate the commitment file for this `.elf` file, place it in `$PROJECT_ROOT/execution_files/{instruction_commitment_filename}.txt`, and set up the correct `.elf` and `.txt` names in `bitvmx_protocol_library/bitvmx_execution/services/execution_trace_generation_service.py`.
+4. Run the command `docker compose build` in the root of the repository.
 
 ## Execution
 
@@ -29,15 +29,15 @@ To build the project, follow these steps:
 
    c. `execution_files` (this one can be renamed from the existing one that already contains a valid example)
 
-1. Start both microservices:
+1. Rename the example environment files from `.example_env_{common/prover/verifier}` to `.env_{common/prover/verifier}`.
+
+2. Start both microservices:
 
    a. `docker compose up prover-backend`
    
    b. `docker compose up verifier-backend`
    
-2. Open the prover Swagger UI at `http://0.0.0.0:8080/docs`.
-
-3. Rename the example environment files from `.example_env_{common/prover/verifier}` to `.env_{common/prover/verifier}`.
+3. Open the prover Swagger UI at `http://0.0.0.0:8081/docs`.
 
 4. Generate a setup by executing the endpoint (EP) `api/v1/setup/fund/`. This will both get some funds from the mutinynet faucet and perform the setup ceremony. At the end, you'll see the transaction that locks the funds.
 
